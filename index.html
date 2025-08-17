@@ -16,10 +16,12 @@
       color: #ff4444;
     }
     img {
-      max-width: 50%;
       height: auto;
       margin: 1em 0;
       border: 2px solid #444;
+    }
+    .section {
+      margin-bottom: 3em;
     }
     .side-by-side {
       display: flex;
@@ -28,11 +30,7 @@
       flex-wrap: wrap;
     }
     .side-by-side img {
-      max-width: 300px;
-      border: 2px solid #555;
-    }
-    .section {
-      margin-bottom: 3em;
+      max-width: 75%;
     }
     .trademark-inline {
       height: 30px;
@@ -42,50 +40,52 @@
     .email-button {
       display: inline-block;
       margin-top: 40px;
-      padding: 10px 20px;
-      font-size: 16px;
-      background-color: #ff4444;
+      padding: 14px 28px;
+      font-size: 18px;
+      background-color: #8b0000;
       color: #fff;
       text-decoration: none;
-      border-radius: 5px;
+      border-radius: 6px;
       transition: background-color 0.3s ease;
     }
     .email-button:hover {
-      background-color: #cc3333;
+      background-color: #5c0000;
     }
   </style>
 </head>
 <body>
-  <h1>Witches Ond Warlocks™
-    <img src="assets/Trademark_Label.png" alt="TM Logo" class="trademark-inline">
+  <h1>
+    Witches Ond Warlocks™
+    <img src="assets/Trademark_Label.png" alt="TM Logo" class="trademark-inline" style="height: 30px;">
   </h1>
 
-  <p>This trademark is used in connection with collectible trading cards and fantasy-themed apparel.</p>
+  <p>Collectible trading cards and fantasy-themed apparel.</p>
 
   <div class="section">
     <h2>🎴 Booster Packs (Front & Back)</h2>
-    <img src="assets/Booster_Front.png" alt="Booster Pack Front">
-    <img src="assets/Booster_Back.png" alt="Booster Pack Back">
-  </div>
-
-  <div class="section">
-    <h2>✨ Foil Pack Samples</h2>
     <div class="side-by-side">
-      <img src="assets/Foil_Pack.jpg" alt="Foil Pack Sample 1">
-      <img src="assets/Foil_Pack_2.jpg" alt="Foil Pack Sample 2">
+      <img src="assets/Booster_Front.png" alt="Booster Pack Front">
+      <img src="assets/Booster_Back.png" alt="Booster Pack Back">
     </div>
   </div>
 
   <div class="section">
+    <h2>✨ Foil Pack Display</h2>
+    <img src="assets/Foil_Pack.jpg" alt="Foil Pack Sample" style="max-width: 80%;">
+  </div>
+
+  <div class="section">
     <h2>👕 Apparel Display (T-Shirt & Promo)</h2>
-    <img src="assets/TShirt_Display.png" alt="T-Shirt and Card Display">
+    <img src="assets/TShirt_Display.png" alt="T-Shirt and Card Display" style="max-width: 50%;">
   </div>
 
   <div class="section">
     <h2>📛 Trademark Logo</h2>
-    <img src="assets/Trademark_Label.png" alt="Trademark Logo">
+    <img src="assets/Trademark_Label.png" alt="Trademark Logo" style="max-width: 30%;">
   </div>
 
-  <a class="email-button" href="mailto:markperry@witchesondwarlocks.com">📧 Contact Us</a>
+  <a class="email-button" href="mailto:markperry@witchesondwarlocks.com">
+    📧 To become an authorized dealer, please email us
+  </a>
 </body>
 </html>
