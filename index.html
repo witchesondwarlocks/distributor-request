@@ -126,69 +126,82 @@
   </div>
 
   <div class="section">
-    <h2>🎮 Play the Puzzle Game</h2>
-    <div id="puzzle-game"></div>
-  </div>
+  <h2>🎮 Play the Puzzle Video Game</h2>
+  <button onclick="resetPuzzle()" style="margin-bottom: 1em; padding: 10px 20px; font-size: 16px;">🔁 Reset Puzzle</button>
+  <div id="puzzle-game"></div>
+</div>
 
-  <a class="email-button" href="mailto:markperry@witchesondwarlocks.com">
-    📧 To become an authorized dealer, please email us
-  </a>
+<script>
+  const puzzleContainer = document.getElementById("puzzle-game");
+  const size = 4;
+  const tileSize = 150;
+  let emptyTile = { row: size - 1, col: size - 1 };
+  let board = [];
 
-  <script>
-    const puzzleContainer = document.getElementById("puzzle-game");
-    const size = 4;
-    const tileSize = 150;
-    const emptyTile = { row: size - 1, col: size - 1 };
-    let board = [];
+  function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+  }
 
-    function createTile(row, col) {
-      const tile = document.createElement("div");
-      tile.classList.add("tile");
-      tile.style.width = tile.style.height = `${tileSize}px`;
-      tile.style.left = `${col * tileSize}px`;
-      tile.style.top = `${row * tileSize}px`;
+  function createTile(index, row, col) {
+    const tile = document.createElement("div");
+    tile.classList.add("tile");
+    tile.style.width = tile.style.height = `${tileSize}px`;
+    tile.style.left = `${col * tileSize}px`;
+    tile.style.top = `${row * tileSize}px`;
 
-      const index = row * size + col + 1;
-      if (index < size * size) {
-        tile.style.backgroundImage = `url(tiles/tile_0_${index}.png)`;
-        tile.dataset.index = index;
-        tile.addEventListener("click", () => tryMove(row, col));
-      } else {
-        tile.classList.add("empty");
-      }
-
-      puzzleContainer.appendChild(tile);
-      return tile;
+    if (index < size * size) {
+      tile.style.backgroundImage = `url(tiles/tile_0_${index}.png)`;
+      tile.dataset.index = index;
+      tile.addEventListener("click", () => tryMove(row, col));
+    } else {
+      tile.classList.add("empty");
+      emptyTile = { row, col };
     }
 
-    function tryMove(row, col) {
-      const dr = Math.abs(emptyTile.row - row);
-      const dc = Math.abs(emptyTile.col - col);
-      if ((dr === 1 && dc === 0) || (dr === 0 && dc === 1)) {
-        const clickedTile = board[row][col];
-        clickedTile.style.top = `${emptyTile.row * tileSize}px`;
-        clickedTile.style.left = `${emptyTile.col * tileSize}px`;
-        board[emptyTile.row][emptyTile.col] = clickedTile;
-        board[row][col] = null;
-        emptyTile.row = row;
-        emptyTile.col = col;
+    puzzleContainer.appendChild(tile);
+    return tile.classList.contains("empty") ? null : tile;
+  }
+
+  function tryMove(row, col) {
+    const dr = Math.abs(emptyTile.row - row);
+    const dc = Math.abs(emptyTile.col - col);
+    if ((dr === 1 && dc === 0) || (dr === 0 && dc === 1)) {
+      const tile = board[row][col];
+      tile.style.top = `${emptyTile.row * tileSize}px`;
+      tile.style.left = `${emptyTile.col * tileSize}px`;
+      board[emptyTile.row][emptyTile.col] = tile;
+      board[row][col] = null;
+      emptyTile = { row, col };
+    }
+  }
+
+  function resetPuzzle() {
+    puzzleContainer.innerHTML = '';
+    initBoard();
+  }
+
+  function initBoard() {
+    const indexes = Array.from({ length: size * size }, (_, i) => i + 1);
+    indexes[indexes.length - 1] = 0; // 0 = empty
+    shuffleArray(indexes);
+
+    puzzleContainer.style.width = `${size * tileSize}px`;
+    puzzleContainer.style.height = `${size * tileSize}px`;
+
+    board = [];
+    for (let r = 0; r < size; r++) {
+      board[r] = [];
+      for (let c = 0; c < size; c++) {
+        const idx = indexes[r * size + c];
+        board[r][c] = createTile(idx, r, c);
       }
     }
+  }
 
-    function initBoard() {
-      puzzleContainer.style.width = `${size * tileSize}px`;
-      puzzleContainer.style.height = `${size * tileSize}px`;
-
-      for (let r = 0; r < size; r++) {
-        board[r] = [];
-        for (let c = 0; c < size; c++) {
-          const tile = createTile(r, c);
-          board[r][c] = tile.classList.contains("empty") ? null : tile;
-        }
-      }
-    }
-
-    window.onload = initBoard;
-  </script>
+  window.onload = initBoard;
+</script>
 </body>
 </html>
